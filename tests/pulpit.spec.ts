@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.describe("Pulpit tests", () => {
+test.describe('Pulpit tests', () => {
   test('quick payment with correct data', async ({ page }) => {
     // Arange
     const url = 'https://demo-bank.vercel.app/';
@@ -24,10 +24,12 @@ test.describe("Pulpit tests", () => {
 
     await page.getByRole('button', { name: 'wykonaj' }).click();
     await page.getByTestId('close-button').click();
-    await page.waitForLoadState("domcontentloaded");
+    await page.waitForLoadState('domcontentloaded');
 
     // Assert
-    await expect(page.locator('#show_messages')).toHaveText(`Przelew wykonany! ${expectedTransferReceiver} - ${transferAmount},00PLN - ${transferTitle}`);
+    await expect(page.locator('#show_messages')).toHaveText(
+      `Przelew wykonany! ${expectedTransferReceiver} - ${transferAmount},00PLN - ${transferTitle}`,
+    );
   });
 
   test('successful mobile top-up', async ({ page }) => {
@@ -35,7 +37,7 @@ test.describe("Pulpit tests", () => {
     await page.getByTestId('login-input').fill('testerLO');
     await page.getByTestId('password-input').fill('abcdefgg');
     await page.getByTestId('login-button').click();
-    await expect(page.getByTestId('user-name')).toHaveText("Jan Demobankowy");
+    await expect(page.getByTestId('user-name')).toHaveText('Jan Demobankowy');
 
     await page.locator('#widget_1_topup_receiver').selectOption('500 xxx xxx');
     await page.locator('#widget_1_topup_amount').fill('40');
@@ -43,9 +45,9 @@ test.describe("Pulpit tests", () => {
 
     await page.getByRole('button', { name: 'doładuj telefon' }).click();
     await page.getByTestId('close-button').click();
-    await page.waitForLoadState("domcontentloaded");
-    await expect(page.locator('#show_messages')).toHaveText("Doładowanie wykonane! 40,00PLN na numer 500 xxx xxx");
+    await page.waitForLoadState('domcontentloaded');
+    await expect(page.locator('#show_messages')).toHaveText(
+      'Doładowanie wykonane! 40,00PLN na numer 500 xxx xxx',
+    );
   });
-
-  
 });
