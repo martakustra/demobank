@@ -5,11 +5,13 @@ test.describe('Pulpit tests', () => {
     const url = 'https://demo-bank.vercel.app/';
     const userId = 'testerLO';
     const userPassword = 'abcdefgg';
+    
     await page.goto(url);
     await page.getByTestId('login-input').fill(userId);
     await page.getByTestId('password-input').fill(userPassword);
     await page.getByTestId('login-button').click();
   });
+
   test('quick payment with correct data', async ({ page }) => {
     // Arrange
     const receiverId = '2';
