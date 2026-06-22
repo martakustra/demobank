@@ -35,11 +35,15 @@ test.describe('Login tests', () => {
     const errorMessageId = 'identyfikator ma min. 8 znaków';
 
     // Act
-    await page.getByTestId('login-input').fill(userIdWrong);
-    await page.getByTestId('login-input').blur();
+    const loginPage = new LoginPage(page);
+    await loginPage.loginInput.fill(userIdWrong);
+    await loginPage.loginInput.blur();
+
+    //await page.getByTestId('login-input').fill(userIdWrong);
+    //await page.getByTestId('login-input').blur();
 
     // Assert
-    await expect(page.getByTestId('error-login-id')).toHaveText(errorMessageId);
+    await expect(loginPage.loginError).toHaveText(errorMessageId);
   });
 
   test('unsuccessful login with too short password', async ({ page }) => {
@@ -49,13 +53,18 @@ test.describe('Login tests', () => {
     const errorMessagePassword = 'hasło ma min. 8 znaków';
 
     // Act
-    await page.getByTestId('login-input').fill(userId);
-    await page.getByTestId('password-input').fill(userPasswordWrong);
-    await page.getByTestId('password-input').blur();
+    const loginPage = new LoginPage(page);
+    await loginPage.loginInput.fill(userId);
+    await loginPage.passwordInput.fill(userPasswordWrong);
+    await loginPage.passwordInput.blur();
+
+    // await page.getByTestId('login-input').fill(userId);
+    // await page.getByTestId('password-input').fill(userPasswordWrong);
+    // await page.getByTestId('password-input').blur();
 
     // Assert
-    await expect(page.getByTestId('error-login-password')).toHaveText(
-      errorMessagePassword,
-    );
+    await expect(loginPage.loginPasswordError).toHaveText(errorMessagePassword);
+
+    // await expect(page.getByTestId('error-login-password')).toHaveText(errorMessagePassword);
   });
 });
