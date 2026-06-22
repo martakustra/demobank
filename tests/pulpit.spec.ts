@@ -18,7 +18,7 @@ test.describe('Pulpit tests', () => {
     // await page.getByTestId('login-button').click();
   });
 
-  test.only('quick payment with correct data', async ({ page }) => {
+  test('quick payment with correct data', async ({ page }) => {
     // Arrange
     const receiverId = '2';
     const transferAmount = '150';
