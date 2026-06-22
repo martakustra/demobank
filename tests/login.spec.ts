@@ -26,7 +26,7 @@ test.describe('Login tests', () => {
     //await page.getByTestId('login-button').click();
 
     // Assert
-    await expect(page.getByTestId('user-name')).toHaveText(expectedUserName);
+    await expect(loginPage.loginUserName).toHaveText(expectedUserName);
   });
 
   test('unsuccessful login with too short login', async ({ page }) => {
