@@ -13,9 +13,7 @@ test.describe('Payment tests', () => {
 
     // POB
     const loginPage = new LoginPage(page);
-    await loginPage.loginInput.fill(userId);
-    await loginPage.passwordInput.fill(userPassword);
-    await loginPage.loginButton.click();
+    await loginPage.login(userId, userPassword);
 
     const pulpitPage = new PulpitPage(page);
     await pulpitPage.sideMenu.paymentLink.click();
