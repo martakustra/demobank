@@ -20,4 +20,16 @@ export class PaymentPage {
     this.showMessage = this.page.locator('#show_messages');
     this.paymentButton = this.page.getByRole('link', { name: 'płatności' });
   }
+  async makeTransfer(
+    transferReceiver: string,
+    transferAccount: string,
+    transferAmount: string,
+  ): Promise<void> {
+    await this.transferReceiver.fill(transferReceiver);
+    await this.transferAccount.fill(transferAccount);
+    await this.transferAmount.fill(transferAmount);
+
+    await this.doTransfer.click();
+    await this.closeButton.click();
+  }
 }
