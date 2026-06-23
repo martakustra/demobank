@@ -12,6 +12,7 @@ export class PulpitPage {
   topUpAgreement: Locator;
   showMessage: Locator;
   moneyValue: Locator;
+  paymentButton: Locator;
 
   constructor(private page: Page) {
     this.topUpButton = this.page.getByRole('button', {
@@ -29,5 +30,6 @@ export class PulpitPage {
     );
     this.showMessage = this.page.locator('#show_messages');
     this.moneyValue = this.page.locator('#money_value');
+    this.paymentButton = this.page.getByRole('link', { name: 'płatności' });
   }
 }

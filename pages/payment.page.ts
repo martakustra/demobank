@@ -7,6 +7,7 @@ export class PaymentPage {
   doTransfer: Locator;
   closeButton: Locator;
   showMessage: Locator;
+  paymentButton: Locator;
 
   constructor(private page: Page) {
     this.transferReceiver = this.page.getByTestId('transfer_receiver');
@@ -17,5 +18,6 @@ export class PaymentPage {
     });
     this.closeButton = this.page.getByTestId('close-button');
     this.showMessage = this.page.locator('#show_messages');
+    this.paymentButton = this.page.getByRole('link', { name: 'płatności' });
   }
 }

@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import { loginData } from '../test-data/login.data.ts';
 import { LoginPage } from '../pages/login.page.ts';
 import { PaymentPage } from '../pages/payment.page.ts';
+import { PulpitPage } from '../pages/pulpit.page.ts';
 
 test.describe('Payment tests', () => {
   test.beforeEach(async ({ page }) => {
@@ -15,10 +16,13 @@ test.describe('Payment tests', () => {
     await loginPage.passwordInput.fill(userPassword);
     await loginPage.loginButton.click();
 
+    const pulpitPage = new PulpitPage(page);
+    await pulpitPage.paymentButton.click();
+
     // await page.getByTestId('login-input').fill(userId);
     // await page.getByTestId('password-input').fill(userPassword);
     // await page.getByTestId('login-button').click();
-    await page.getByRole('link', { name: 'płatności' }).click();
+    // await page.getByRole('link', { name: 'płatności' }).click();
   });
 
   test('simple payment', async ({ page }) => {
