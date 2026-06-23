@@ -36,4 +36,26 @@ export class PulpitPage {
 
     this.sideMenu = new SideMenuComponent(this.page);
   }
+  async pulpitMakeTransfer(
+    receiverId: string,
+    transferAmount: string,
+    transferTitle: string,
+  ): Promise<void> {
+    await this.transferReceiver.selectOption(receiverId);
+    await this.transferAmount.fill(transferAmount);
+    await this.transferTitle.fill(transferTitle);
+    await this.doTransfer.click();
+    await this.closeButton.click();
+  }
+
+  async pulpitMakeTopUp(
+    receiverId: string,
+    topupAmount: string,
+  ): Promise<void> {
+    await this.topUpReceiver.selectOption(receiverId);
+    await this.topUpAmount.fill(topupAmount);
+    await this.topUpAgreement.click();
+    await this.topUpButton.click();
+    await this.closeButton.click();
+  }
 }

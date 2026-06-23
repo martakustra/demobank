@@ -9,7 +9,7 @@ test.describe('Pulpit tests', () => {
     const userId = loginData.userId;
     const userPassword = loginData.userPassword;
     await page.goto('/');
-    // POB
+
     const loginPage = new LoginPage(page);
     await loginPage.login(userId, userPassword);
 
@@ -25,11 +25,11 @@ test.describe('Pulpit tests', () => {
     const expectedMessage = `Przelew wykonany! ${expectedTransferReceiver} - ${transferAmount},00PLN - ${transferTitle}`;
 
     // Act
-    await pulpitPage.transferReceiver.selectOption(receiverId);
-    await pulpitPage.transferAmount.fill(transferAmount);
-    await pulpitPage.transferTitle.fill(transferTitle);
-    await pulpitPage.doTransfer.click();
-    await pulpitPage.closeButton.click();
+    await pulpitPage.pulpitMakeTransfer(
+      receiverId,
+      transferAmount,
+      transferTitle,
+    );
 
     await page.waitForLoadState('domcontentloaded');
 
@@ -44,11 +44,7 @@ test.describe('Pulpit tests', () => {
     const expectedMessage = `Doładowanie wykonane! ${topupAmount},00PLN na numer ${receiverId}`;
 
     // Act
-    await pulpitPage.topUpReceiver.selectOption(receiverId);
-    await pulpitPage.topUpAmount.fill(topupAmount);
-    await pulpitPage.topUpAgreement.click();
-    await pulpitPage.topUpButton.click();
-    await pulpitPage.closeButton.click();
+    await pulpitPage.pulpitMakeTopUp(receiverId, topupAmount);
 
     await page.waitForLoadState('domcontentloaded');
 
@@ -64,11 +60,7 @@ test.describe('Pulpit tests', () => {
     const expectedBalance = Number(initialBalance) - Number(topupAmount);
 
     // Act
-    await pulpitPage.topUpReceiver.selectOption(receiverId);
-    await pulpitPage.topUpAmount.fill(topupAmount);
-    await pulpitPage.topUpAgreement.click();
-    await pulpitPage.topUpButton.click();
-    await pulpitPage.closeButton.click();
+    await pulpitPage.pulpitMakeTopUp(receiverId, topupAmount);
 
     await page.waitForLoadState('domcontentloaded');
 
