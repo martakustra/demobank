@@ -18,12 +18,6 @@ test.describe('Payment tests', () => {
 
     const pulpitPage = new PulpitPage(page);
     await pulpitPage.sideMenu.paymentLink.click();
-    // await pulpitPage.paymentButton.click();
-
-    // await page.getByTestId('login-input').fill(userId);
-    // await page.getByTestId('password-input').fill(userPassword);
-    // await page.getByTestId('login-button').click();
-    // await page.getByRole('link', { name: 'płatności' }).click();
   });
 
   test('simple payment', async ({ page }) => {
@@ -41,12 +35,6 @@ test.describe('Payment tests', () => {
     await paymentPage.transferAmount.fill(transferAmount);
     await paymentPage.doTransfer.click();
     await paymentPage.closeButton.click();
-
-    // await page.getByTestId('transfer_receiver').fill(transferReceiver);
-    // await page.getByTestId('form_account_to').fill(transferAccount);
-    // await page.getByTestId('form_amount').fill(transferAmount);
-    // await page.getByRole('button', { name: 'wykonaj przelew' }).click();
-    // await page.getByTestId('close-button').click();
 
     // Assert
     await expect(paymentPage.showMessage).toHaveText(expectedMessage);

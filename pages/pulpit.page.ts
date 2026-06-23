@@ -13,7 +13,6 @@ export class PulpitPage {
   topUpAgreement: Locator;
   showMessage: Locator;
   moneyValue: Locator;
-  //paymentButton: Locator;
   sideMenu: SideMenuComponent;
 
   constructor(private page: Page) {
@@ -34,6 +33,5 @@ export class PulpitPage {
     this.moneyValue = this.page.locator('#money_value');
 
     this.sideMenu = new SideMenuComponent(this.page);
-    //this.paymentButton = this.page.getByRole('link', { name: 'płatności' });
   }
 }

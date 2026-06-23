@@ -9,7 +9,6 @@ test.describe('Login tests', () => {
 
   test('successful login with correct credentials', async ({ page }) => {
     // Arrange
-
     const userId = loginData.userId;
     const userPassword = loginData.userPassword;
     const expectedUserName = 'Jan Demobankowy';
@@ -20,10 +19,6 @@ test.describe('Login tests', () => {
     await loginPage.loginInput.fill(userId);
     await loginPage.passwordInput.fill(userPassword);
     await loginPage.loginButton.click();
-
-    //await page.getByTestId('login-input').fill(userId);
-    //await page.getByTestId('password-input').fill(userPassword);
-    //await page.getByTestId('login-button').click();
 
     // Assert
     await expect(loginPage.loginUserName).toHaveText(expectedUserName);
@@ -38,9 +33,6 @@ test.describe('Login tests', () => {
     const loginPage = new LoginPage(page);
     await loginPage.loginInput.fill(userIdWrong);
     await loginPage.loginInput.blur();
-
-    //await page.getByTestId('login-input').fill(userIdWrong);
-    //await page.getByTestId('login-input').blur();
 
     // Assert
     await expect(loginPage.loginError).toHaveText(errorMessageId);
@@ -58,13 +50,7 @@ test.describe('Login tests', () => {
     await loginPage.passwordInput.fill(userPasswordWrong);
     await loginPage.passwordInput.blur();
 
-    // await page.getByTestId('login-input').fill(userId);
-    // await page.getByTestId('password-input').fill(userPasswordWrong);
-    // await page.getByTestId('password-input').blur();
-
     // Assert
     await expect(loginPage.loginPasswordError).toHaveText(errorMessagePassword);
-
-    // await expect(page.getByTestId('error-login-password')).toHaveText(errorMessagePassword);
   });
 });
