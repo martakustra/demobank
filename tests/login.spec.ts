@@ -1,10 +1,14 @@
 import { test, expect } from '@playwright/test';
 import { loginData } from '../test-data/login.data';
 import { LoginPage } from '../pages/login.page';
+import { PulpitPage } from '../pages/pulpit.page';
 
 test.describe('Login tests', () => {
+  let loginPage: LoginPage;
+
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
+    loginPage = new LoginPage(page);
   });
 
   test('successful login with correct credentials', async ({ page }) => {
@@ -14,14 +18,13 @@ test.describe('Login tests', () => {
     const expectedUserName = 'Jan Demobankowy';
 
     // Act
-    // POB
-    const loginPage = new LoginPage(page);
     await loginPage.loginInput.fill(userId);
     await loginPage.passwordInput.fill(userPassword);
     await loginPage.loginButton.click();
 
     // Assert
-    await expect(loginPage.loginUserName).toHaveText(expectedUserName);
+    const pulpitPage = new PulpitPage(page);
+    await expect(pulpitPage.userNameText).toHaveText(expectedUserName);
   });
 
   test('unsuccessful login with too short login', async ({ page }) => {
@@ -30,7 +33,6 @@ test.describe('Login tests', () => {
     const errorMessageId = 'identyfikator ma min. 8 znaków';
 
     // Act
-    const loginPage = new LoginPage(page);
     await loginPage.loginInput.fill(userIdWrong);
     await loginPage.loginInput.blur();
 
@@ -45,7 +47,6 @@ test.describe('Login tests', () => {
     const errorMessagePassword = 'hasło ma min. 8 znaków';
 
     // Act
-    const loginPage = new LoginPage(page);
     await loginPage.loginInput.fill(userId);
     await loginPage.passwordInput.fill(userPasswordWrong);
     await loginPage.passwordInput.blur();
