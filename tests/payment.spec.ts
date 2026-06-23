@@ -17,7 +17,8 @@ test.describe('Payment tests', () => {
     await loginPage.loginButton.click();
 
     const pulpitPage = new PulpitPage(page);
-    await pulpitPage.paymentButton.click();
+    await pulpitPage.sideMenu.paymentLink.click();
+    // await pulpitPage.paymentButton.click();
 
     // await page.getByTestId('login-input').fill(userId);
     // await page.getByTestId('password-input').fill(userPassword);

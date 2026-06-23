@@ -1,4 +1,5 @@
 import { Locator, Page } from '@playwright/test';
+import { SideMenuComponent } from '../components/side-menu.components';
 
 export class PulpitPage {
   topUpButton: Locator;
@@ -12,7 +13,8 @@ export class PulpitPage {
   topUpAgreement: Locator;
   showMessage: Locator;
   moneyValue: Locator;
-  paymentButton: Locator;
+  //paymentButton: Locator;
+  sideMenu: SideMenuComponent;
 
   constructor(private page: Page) {
     this.topUpButton = this.page.getByRole('button', {
@@ -30,6 +32,8 @@ export class PulpitPage {
     );
     this.showMessage = this.page.locator('#show_messages');
     this.moneyValue = this.page.locator('#money_value');
-    this.paymentButton = this.page.getByRole('link', { name: 'płatności' });
+
+    this.sideMenu = new SideMenuComponent(this.page);
+    //this.paymentButton = this.page.getByRole('link', { name: 'płatności' });
   }
 }
