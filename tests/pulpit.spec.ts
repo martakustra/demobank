@@ -16,55 +16,67 @@ test.describe('Pulpit tests', () => {
     pulpitPage = new PulpitPage(page);
   });
 
-  test('quick payment with correct data', async ({ page }) => {
-    // Arrange
-    const receiverId = '2';
-    const transferAmount = '150';
-    const transferTitle = 'pizza';
-    const expectedTransferReceiver = 'Chuck Demobankowy';
-    const expectedMessage = `Przelew wykonany! ${expectedTransferReceiver} - ${transferAmount},00PLN - ${transferTitle}`;
+  test(
+    'quick payment with correct data',
+    { tag: ['@pulpit', '@integration'] },
+    async ({ page }) => {
+      // Arrange
+      const receiverId = '2';
+      const transferAmount = '150';
+      const transferTitle = 'pizza';
+      const expectedTransferReceiver = 'Chuck Demobankowy';
+      const expectedMessage = `Przelew wykonany! ${expectedTransferReceiver} - ${transferAmount},00PLN - ${transferTitle}`;
 
-    // Act
-    await pulpitPage.pulpitMakeTransfer(
-      receiverId,
-      transferAmount,
-      transferTitle,
-    );
+      // Act
+      await pulpitPage.pulpitMakeTransfer(
+        receiverId,
+        transferAmount,
+        transferTitle,
+      );
 
-    await page.waitForLoadState('domcontentloaded');
+      await page.waitForLoadState('domcontentloaded');
 
-    // Assert
-    await expect(pulpitPage.showMessage).toHaveText(expectedMessage);
-  });
+      // Assert
+      await expect(pulpitPage.showMessage).toHaveText(expectedMessage);
+    },
+  );
 
-  test('successful mobile top-up', async ({ page }) => {
-    // Arrange
-    const receiverId = '500 xxx xxx';
-    const topupAmount = '40';
-    const expectedMessage = `Doładowanie wykonane! ${topupAmount},00PLN na numer ${receiverId}`;
+  test(
+    'successful mobile top-up',
+    { tag: ['@pulpit', '@integration'] },
+    async ({ page }) => {
+      // Arrange
+      const receiverId = '500 xxx xxx';
+      const topupAmount = '40';
+      const expectedMessage = `Doładowanie wykonane! ${topupAmount},00PLN na numer ${receiverId}`;
 
-    // Act
-    await pulpitPage.pulpitMakeTopUp(receiverId, topupAmount);
+      // Act
+      await pulpitPage.pulpitMakeTopUp(receiverId, topupAmount);
 
-    await page.waitForLoadState('domcontentloaded');
+      await page.waitForLoadState('domcontentloaded');
 
-    // Assert
-    await expect(pulpitPage.showMessage).toHaveText(expectedMessage);
-  });
+      // Assert
+      await expect(pulpitPage.showMessage).toHaveText(expectedMessage);
+    },
+  );
 
-  test('correct balance after successful mobile top-up', async ({ page }) => {
-    // Arrange
-    const receiverId = '500 xxx xxx';
-    const topupAmount = '50';
-    const initialBalance = await pulpitPage.moneyValue.innerText();
-    const expectedBalance = Number(initialBalance) - Number(topupAmount);
+  test(
+    'correct balance after successful mobile top-up',
+    { tag: ['@pulpit', '@integration'] },
+    async ({ page }) => {
+      // Arrange
+      const receiverId = '500 xxx xxx';
+      const topupAmount = '50';
+      const initialBalance = await pulpitPage.moneyValue.innerText();
+      const expectedBalance = Number(initialBalance) - Number(topupAmount);
 
-    // Act
-    await pulpitPage.pulpitMakeTopUp(receiverId, topupAmount);
+      // Act
+      await pulpitPage.pulpitMakeTopUp(receiverId, topupAmount);
 
-    await page.waitForLoadState('domcontentloaded');
+      await page.waitForLoadState('domcontentloaded');
 
-    // Assert
-    await expect(pulpitPage.moneyValue).toHaveText(`${expectedBalance}`);
-  });
+      // Assert
+      await expect(pulpitPage.moneyValue).toHaveText(`${expectedBalance}`);
+    },
+  );
 });

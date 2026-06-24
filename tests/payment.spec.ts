@@ -21,21 +21,31 @@ test.describe('Payment tests', () => {
     paymentPage = new PaymentPage(page);
   });
 
-  test('simple payment', async ({ page }) => {
-    // Arrange
-    const transferReceiver = 'Jan Nowak';
-    const transferAccount = '12 3456 7890 1234 5667 8900 12233';
-    const transferAmount = '222';
-    const expectedMessage = `Przelew wykonany! ${transferAmount},00PLN dla ${transferReceiver}`;
+  test(
+    'simple payment',
+    {
+      tag: ['@payment', '@integration'],
+      annotation: {
+        type: 'documentation',
+        description: 'More to find at: https://',
+      },
+    },
+    async ({ page }) => {
+      // Arrange
+      const transferReceiver = 'Jan Nowak';
+      const transferAccount = '12 3456 7890 1234 5667 8900 12233';
+      const transferAmount = '222';
+      const expectedMessage = `Przelew wykonany! ${transferAmount},00PLN dla ${transferReceiver}`;
 
-    // Act
-    await paymentPage.makeTransfer(
-      transferReceiver,
-      transferAccount,
-      transferAmount,
-    );
+      // Act
+      await paymentPage.makeTransfer(
+        transferReceiver,
+        transferAccount,
+        transferAmount,
+      );
 
-    // Assert
-    await expect(paymentPage.showMessage).toHaveText(expectedMessage);
-  });
+      // Assert
+      await expect(paymentPage.showMessage).toHaveText(expectedMessage);
+    },
+  );
 });
