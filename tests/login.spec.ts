@@ -37,7 +37,7 @@ test.describe('Login tests', () => {
 
   test(
     'unsuccessful login with too short login',
-    { tag: '@login' },
+    { tag: ['@login', '@unhappy_path'] },
     async ({ page }) => {
       // Arrange
       const userIdWrong = 'teserLO';
@@ -54,7 +54,7 @@ test.describe('Login tests', () => {
 
   test(
     'unsuccessful login with too short password',
-    { tag: '@login' },
+    { tag: ['@login', '@unhappy_path'] },
     async ({ page }) => {
       // Arrange
       const userId = 'testerLO';
